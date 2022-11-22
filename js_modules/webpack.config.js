@@ -13,6 +13,10 @@ const config = {
       {
         use: 'babel-loader',
         test: /\.js$/, // regex expression, if the file ends with '.js', babel will be applies
+      },
+      {
+        use: ['style-loader', 'css-loader'], // order is RIGHT to LEFT (CSS loader will be loader and output of that will be sent to style loader)
+        test: /\.css$/, // regex expression, if the file ends with '.css', babel will be applies
       }
     ]
   }
