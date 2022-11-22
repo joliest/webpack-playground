@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   entry: './src/index.js',
@@ -15,11 +16,20 @@ const config = {
         test: /\.js$/, // regex expression, if the file ends with '.js', babel will be applies
       },
       {
-        use: ['style-loader', 'css-loader'], // order is RIGHT to LEFT (CSS loader will be loader and output of that will be sent to style loader)
+        // use and loader are typically the same but the way how 'extract-text-webpack-plugin' is 
+        // written, we need to use legacy
+        loader: ExtractTextPlugin.extract({
+          loader: 'css-loader',
+        }),
         test: /\.css$/, // regex expression, if the file ends with '.css', babel will be applies
       }
     ]
-  }
+  },
+  plugins: [
+    // find any files that were transformed by it's loader (css-loader) and saved
+    // into a file called 'style.css'
+    new ExtractTextPlugin('style.css'),
+  ]
 };
 
 module.exports = config;
