@@ -22,6 +22,21 @@ const config = {
           loader: 'css-loader',
         }),
         test: /\.css$/, // regex expression, if the file ends with '.css', babel will be applies
+      },
+      {
+        // jpg or jpe
+        test: /\.(jpe?g|png|gif|svg)$/,
+        // once found, will be send to url loader and image loader
+        use: [
+          // sGridr's order is opposite. See https://github.com/StephenGrider/WebpackCasts/blob/master/js_modules/webpack.config.js
+          // I I used this as a workaround
+          'image-webpack-loader',
+          // need extra config, so we need it as object
+          {
+            loader: 'url-loader',
+            options: { limit: 40000 } // > 40KB will be saved in separate file, else include in bundle file
+          },
+        ]
       }
     ]
   },
