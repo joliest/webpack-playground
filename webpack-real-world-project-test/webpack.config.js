@@ -36,5 +36,11 @@ module.exports = {
         test: /\.css$/
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      // solves issue in double including
+      name: 'vendor'
+    })
+  ]
 };
