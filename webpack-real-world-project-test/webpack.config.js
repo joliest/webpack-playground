@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const VENDOR_LIBS = [
   // name of libs we want to include in vendor file
@@ -41,6 +42,11 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       // solves issue in double including
       name: 'vendor'
+    }),
+    new HtmlWebpackPlugin({
+      // move the html to src, automatically adds script tag on index.html for 
+      // every Javascript file we generate
+      template: 'src/index.html'
     })
   ]
 };
