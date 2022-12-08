@@ -18,7 +18,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     // name will be replaced as the key from entry node
-    filename: '[name].js'
+    // chunkhash will generate random characters
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -41,7 +42,8 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       // solves issue in double including
-      name: 'vendor'
+      // manifest creates a JS file. Tell browser give more understanding whether vendor file is changed
+      names: ['vendor', 'manifest']
     }),
     new HtmlWebpackPlugin({
       // move the html to src, automatically adds script tag on index.html for 
