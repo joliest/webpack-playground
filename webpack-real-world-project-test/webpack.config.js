@@ -49,6 +49,13 @@ module.exports = {
       // move the html to src, automatically adds script tag on index.html for 
       // every Javascript file we generate
       template: 'src/index.html'
+    }),
+    // make sure that this is available in WIndows scope (global, use DefinePlugin)
+    new webpack.DefinePlugin({
+      // React JS using NODE_ENV flag, whenever it runs, it looks for process.env.NODE_ENV
+      // we will set the correct environment for this thing in package.json build script
+      // We will indicate NODE_ENV=production to avoid error checks in the prod
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     })
   ]
 };
